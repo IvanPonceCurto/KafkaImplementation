@@ -1,0 +1,8 @@
+Comando para Zookeeper: bin/zookeeper-server-start.sh config/zookeeper.properties
+
+Kafka Server: bin/kafka-server-start.sh config/server.properties
+
+Consumer desde la consola: bin/kafka-console-consumer.sh --topic healthInstance --from-beginning --bootstrap-server localhost:9092
+Consumer desde la consola: bin/kafka-console-consumer.sh --topic healthAlert --from-beginning --bootstrap-server localhost:9092
+Consumer desde la consola: bin/kafka-console-consumer.sh --topic arqapp --from-beginning --bootstrap-server localhost:9092
+siendo el quickstart-events lo que cambiamos
