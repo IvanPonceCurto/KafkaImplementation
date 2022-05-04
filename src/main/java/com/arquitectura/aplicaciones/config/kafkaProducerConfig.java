@@ -6,14 +6,12 @@ import com.arquitectura.aplicaciones.models.HealthAlert;
 import com.arquitectura.aplicaciones.models.HealthInstance;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
-import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,19 +45,37 @@ public class kafkaProducerConfig {
         return new KafkaTemplate<>(healthInstanceProducerFactory);
     }
 
-    /*@Bean
-    public ProducerFactory<String, Object> healthAlertProducerFactory() {
+    @Bean
+    public ProducerFactory<String, HealthAlert> healthAlertProducerFactory() {
         Map<String, Object> props = new HashMap<>();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "nombre instancia 2");
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, serverBootstrapped);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, HealthAlertSerializer.class);
         return new DefaultKafkaProducerFactory<>(props);
     }
 
-    //@Bean(name = "healthAlertProducer")
-    public KafkaTemplate<String, Object> healthAlertKafkaTemplate(ProducerFactory<String, Object> healthAlertProducerFactory) {
+    @Bean(name = "healthAlertProducer")
+    public KafkaTemplate<String, HealthAlert> healthAlertKafkaTemplate(ProducerFactory<String, HealthAlert> healthAlertProducerFactory) {
         return new KafkaTemplate<>(healthAlertProducerFactory);
-    }*/
+    }
+
+
+    //Generic String producer for second broker
+
+    @Bean
+    public ProducerFactory<String, String> genericProducerFactory() {
+        Map<String, Object> props = new HashMap<>();
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, serverBootstrapped);
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        return new DefaultKafkaProducerFactory<>(props);
+    }
+
+    @Bean(name = "genericProducer")
+    public KafkaTemplate<String, String> genericKafkaTemplate(ProducerFactory<String, String> producerFactory) {
+        //Siempre funciona por DI
+        return new KafkaTemplate<>(producerFactory);
+    }
 
 
 }

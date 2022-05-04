@@ -11,10 +11,6 @@ public class KafkaTopicConfig {
 
     //Creamos 2 topics mas, q son sobre los que vamos a escribir y escuchar.
 
-    @Bean
-    public NewTopic arqAppTopic() {
-        return TopicBuilder.name("arqapp").build();
-    }
 
     @Bean
     public NewTopic healthAlertTopic() {
@@ -26,5 +22,11 @@ public class KafkaTopicConfig {
     public NewTopic healthInstanceTopic() {
         System.out.println("Creando HealthInstance topic");
         return TopicBuilder.name("healthInstance").build();
+    }
+
+    @Bean
+    public NewTopic genericAlertTopic(){
+        System.out.println("Creando topic nuevo");
+        return TopicBuilder.name("genericAlert").build();
     }
 }

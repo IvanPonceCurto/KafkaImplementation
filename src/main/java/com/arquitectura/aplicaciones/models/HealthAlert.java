@@ -5,14 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class HealthAlert implements Serializable {
-    private boolean state; //enviada o no
-    private Alerts Alert;
+public class HealthAlert  {
+
+    private boolean alertState;
+
+    private HealthInstance healthInstance;
+
+    private Alerts alerts; //En realidad aca sería guardar el objeto que nosotros mapeariamos correctamente.
+
     private String timestamp;
 
 }
